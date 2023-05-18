@@ -1,9 +1,14 @@
+import configparser
 import requests
 import json
 
 # Alpha Vantage API endpoint and your API key
 API_ENDPOINT = 'https://www.alphavantage.co/query'
-API_KEY = 'K4AWQU4G77G6EMZP'
+
+# Read API key from config.ini
+config = configparser.ConfigParser()
+config.read('config.ini')
+API_KEY = config.get('API', 'API_KEY')
 
 def fetch_stock_data(symbol):
     """
