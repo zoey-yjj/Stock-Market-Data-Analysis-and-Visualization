@@ -27,7 +27,7 @@ def portfolio_management(stock_symbols):
         print(f"Average Close Price: {analysis['average_close_price']}")
         print(f"Minimum Close Price: {analysis['min_close_price']}")
         print(f"Maximum Close Price: {analysis['max_close_price']}")
-        print(f"Average Volume: {analysis['total_volume']}")
+        print(f"Average Volume: {analysis['average_volume']}")
         print()
 
 # Example usage

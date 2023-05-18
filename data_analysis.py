@@ -21,7 +21,7 @@ def analyze_stock_data(stock_data):
         'max_close_price': np.max(close_prices),
         'min_close_price': np.min(close_prices),
         'average_close_price': np.mean(close_prices),
-        'total_volume': np.sum(volume)
+        'average_volume': np.mean(volume)
     }
 
     return analysis_results
@@ -37,7 +37,7 @@ if stock_data is not None:
     print(f"Max Close Price: {analysis_results['max_close_price']}")
     print(f"Min Close Price: {analysis_results['min_close_price']}")
     print(f"Average Close Price: {analysis_results['average_close_price']}")
-    print(f"Total Volume: {analysis_results['total_volume']}")
+    print(f"Average Volume: {analysis_results['average_volume']}")
 
     # Plotting the closing prices
     dates = [data['date'] for data in stock_data]
