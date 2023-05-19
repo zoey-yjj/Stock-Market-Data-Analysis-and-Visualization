@@ -1,4 +1,6 @@
 import unittest
+import sys
+sys.path.append('..')
 from market_data import fetch_stock_data
 from data_analysis import analyze_stock_data
 
@@ -48,8 +50,8 @@ def handle_error():
         print(f"An error occurred: {str(e)}")
         # Handle the error appropriately
 
-# Run the unit tests
-unittest.main()
+# # Run the unit tests
+# unittest.main()
 
-# Handle errors
-handle_error()
+# # Handle errors
+# handle_error()
