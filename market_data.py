@@ -1,6 +1,5 @@
 import configparser
 import requests
-import json
 
 # Alpha Vantage API endpoint and your API key
 API_ENDPOINT = 'https://www.alphavantage.co/query'
@@ -56,6 +55,7 @@ def fetch_stock_data(symbol):
         print('Error:', e)
         return None
 
+'''
 # Example usage
 stock_symbol = 'AAPL'
 stock_data = fetch_stock_data(stock_symbol)
@@ -64,3 +64,4 @@ if stock_data is not None:
     print(f"Stock Data for {stock_symbol}:")
     for data in stock_data:
         print(f"Date: {data['date']}, Close: {data['close']}, Volume: {data['volume']}")
+'''

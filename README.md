@@ -26,12 +26,33 @@ pip install -r requirements.txt
 
 The data retrieval module fetches stock market data from an external API. To retrieve the data, use the retrieve_stock_data function and provide the necessary parameters such as the stock symbol, start date, and end date.
 
+```python
+# Example usage
+stock_symbol = 'AAPL'
+stock_data = fetch_stock_data(stock_symbol)
+
+if stock_data is not None:
+    print(f"Stock Data for {stock_symbol}:")
+    for data in stock_data:
+        print(f"Date: {data['date']}, Close: {data['close']}, Volume: {data['volume']}")
+```
 
 The retrieved stock data will be in the form of a list of data points, where each data point contains information such as the date, open price, close price, volume, etc.
 
 ## **Data Analysis**
 
 The data analysis module provides functions to analyze the stock market data. The analyze_stock_data function calculates various metrics such as the average close price, minimum close price, maximum close price, and average volume.
+
+```python
+# Example usage
+stock_symbol = 'AAPL'
+stock_data = fetch_stock_data(stock_symbol)
+
+if stock_data is not None:
+    print(f"Stock Data for {stock_symbol}:")
+    for data in stock_data:
+        print(f"Date: {data['date']}, Close: {data['close']}, Volume: {data['volume']}")
+```
 
 The analysis_result dictionary will contain the calculated metrics based on the provided stock data.
 
@@ -46,6 +67,14 @@ This will generate a line plot showing the stock prices over time.
 The portfolio management module helps manage a stock portfolio. It includes functions for calculating the portfolio value, returns, and allocation based on the provided stock data and portfolio holdings.
 
 To calculate the portfolio value, use the calculate_portfolio_value function. Provide the stock data, portfolio holdings (stocks and quantities), and the date for which the portfolio value is to be calculated.
+
+```python
+# Example usage
+stock_symbols = ['AAPL', 'GOOGL', 'MSFT']  # Example stock symbols
+investment_amount = 1000
+portfolio = portfolio_management(stock_symbols, investment_amount)
+print(portfolio)
+```
 
 The portfolio_value variable will contain the calculated value of the portfolio on the specified date.
 

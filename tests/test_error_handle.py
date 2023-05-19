@@ -35,10 +35,12 @@ class PortfolioManagementTestCase(unittest.TestCase):
         self.assertEqual(len(portfolio_data), len(stock_symbols))
         self.assertIsInstance(portfolio_data, dict)
         for symbol, analysis in portfolio_data.items():
-            self.assertIn("average_close_price", analysis)
-            self.assertIn("min_close_price", analysis)
-            self.assertIn("max_close_price", analysis)
-            self.assertIn("average_volume", analysis)
+            self.assertIn("moving_average", analysis)
+            self.assertIn("moving_average", analysis)
+            self.assertIn("daily_return", analysis)
+            self.assertIn("cumulative_return", analysis)
+            self.assertIn("volatility", analysis)
+            self.assertIn("rsi", analysis)
 
 # Error handling example
 def handle_error():

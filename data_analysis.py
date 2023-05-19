@@ -1,51 +1,60 @@
 # %%
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from market_data import fetch_stock_data
 
+
 # Function for data analysis
 def analyze_stock_data(stock_data):
-    """
-    Performs basic analysis on the stock market data.
+    # Convert stock_data to a pandas DataFrame
+    df = pd.DataFrame(stock_data)
 
-    Args:
-        stock_data (list): List of dictionaries containing stock market data
+    # Calculate average volume
+    df['average_volume'] = df['volume'].mean()
 
-    Returns:
-        dict: Dictionary with analysis results
-    """
-    close_prices = [data['close'] for data in stock_data]
-    volume = [data['volume'] for data in stock_data]
+    # Calculate moving average
+    df['moving_average'] = df['close'].rolling(window=5).mean()
 
-    analysis_results = {
-        'max_close_price': np.max(close_prices),
-        'min_close_price': np.min(close_prices),
-        'average_close_price': np.mean(close_prices),
-        'average_volume': np.mean(volume)
-    }
+    # Calculate daily returns
+    df['daily_return'] = df['close'].pct_change()
 
-    return analysis_results
+    # Calculate cumulative returns
+    df['cumulative_return'] = (1 + df['daily_return']).cumprod()
 
+    # Calculate volatility
+    df['volatility'] = df['daily_return'].rolling(window=20).std()
+
+    # Calculate relative strength index (RSI)
+    delta = df['close'].diff()
+    gain = delta.mask(delta < 0, 0)
+    loss = -delta.mask(delta > 0, 0)
+    avg_gain = gain.rolling(window=14).mean()
+    avg_loss = loss.rolling(window=14).mean()
+    rs = avg_gain / avg_loss
+    df['rsi'] = 100 - (100 / (1 + rs))
+
+    # Perform benchmarking - calculate the time taken for specific operations
+    start_time = pd.Timestamp.now()
+
+    # Perform additional analysis or benchmarks here
+
+    end_time = pd.Timestamp.now()
+    elapsed_time = end_time - start_time
+
+    # Print the elapsed time for benchmarking purposes
+    print(f"Elapsed Time: {elapsed_time}")
+
+    # Return the updated DataFrame with analysis results
+    return df
+
+'''
 # Example usage
 stock_symbol = 'AAPL'
 stock_data = fetch_stock_data(stock_symbol)
 
 if stock_data is not None:
-    analysis_results = analyze_stock_data(stock_data)
-
-    print(f"Stock Data Analysis for {stock_symbol}:")
-    print(f"Max Close Price: {analysis_results['max_close_price']}")
-    print(f"Min Close Price: {analysis_results['min_close_price']}")
-    print(f"Average Close Price: {analysis_results['average_close_price']}")
-    print(f"Average Volume: {analysis_results['average_volume']}")
-
-    # Plotting the closing prices
-    dates = [data['date'] for data in stock_data]
-    close_prices = [data['close'] for data in stock_data]
-
-    plt.plot(dates, close_prices)
-    plt.xlabel('Date')
-    plt.ylabel('Closing Price')
-    plt.title(f"{stock_symbol} Stock Closing Prices")
-    plt.xticks(rotation=45)
-    plt.show()
+    analysis_result = analyze_stock_data(stock_data)
+    print(analysis_result)
+'''
+# %%

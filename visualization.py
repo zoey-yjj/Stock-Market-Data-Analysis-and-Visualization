@@ -1,6 +1,7 @@
 # %%
 import matplotlib.pyplot as plt
 from market_data import fetch_stock_data
+from data_analysis import analyze_stock_data
 
 # Function for data visualization
 def visualize_stock_data(stock_data):
@@ -13,33 +14,39 @@ def visualize_stock_data(stock_data):
     Returns:
         None
     """
-    dates = [data['date'] for data in stock_data]
-    close_prices = [data['close'] for data in stock_data]
-    volume = [data['volume'] for data in stock_data]
+    df = analyze_stock_data(stock_data)
 
-    # Plotting the closing prices
-    plt.figure(figsize=(12, 6))
-    plt.plot(dates, close_prices)
+    plt.plot(df['date'], df['close'], label='Close')
+    plt.plot(df['date'], df['moving_average'], label='Moving Average')
     plt.xlabel('Date')
-    plt.ylabel('Closing Price')
-    plt.title('Stock Closing Prices')
-    plt.xticks(rotation=45)
-    plt.grid(True)
+    plt.ylabel('Price')
+    plt.title('Stock Analysis')
+    plt.legend()
     plt.show()
 
-    # Plotting the volume
-    plt.figure(figsize=(12, 6))
-    plt.plot(dates, volume, color='green')
+    # Plot the cumulative return and volatility
+    plt.plot(df['date'], df['cumulative_return'], label='Cumulative Return')
+    plt.plot(df['date'], df['volatility'], label='Volatility')
     plt.xlabel('Date')
-    plt.ylabel('Volume')
-    plt.title('Stock Volume')
-    plt.xticks(rotation=45)
-    plt.grid(True)
+    plt.ylabel('Value')
+    plt.title('Cumulative Return and Volatility')
+    plt.legend()
     plt.show()
 
+    # Plot the RSI
+    plt.plot(df['date'], df['rsi'])
+    plt.xlabel('Date')
+    plt.ylabel('RSI')
+    plt.title('Relative Strength Index (RSI)')
+    plt.show()
+
+'''
 # Example usage
 stock_symbol = 'AAPL'
 stock_data = fetch_stock_data(stock_symbol)
 
 if stock_data is not None:
     visualize_stock_data(stock_data)
+'''
+
+# %%
